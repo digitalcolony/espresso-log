@@ -1,0 +1,9 @@
+html {
+	font-family: monospace;
+}
+
+td,
+th {
+	text-align: left;
+	padding: 8px;
+}
