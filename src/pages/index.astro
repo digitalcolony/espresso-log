@@ -1,5 +1,6 @@
 ---
 import EspressoList from "../components/EspressoList";
+import EspressoGrid from "../components/EspressoGrid";
 import "../styles/styles.css";
 // fetch data from google sheet
 
@@ -34,6 +35,6 @@ try {
 	</head>
 	<body>
 		{error && <p>{error}</p>}
-		{data && <EspressoList data={data} />}
+		{data && <EspressoGrid data={data} />}
 	</body>
 </html>
