@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Table from "react-bootstrap/Table";
+import Table from "react-bootstrap/cjs/Table.js";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 let formatter = new Intl.NumberFormat("en-US", {
