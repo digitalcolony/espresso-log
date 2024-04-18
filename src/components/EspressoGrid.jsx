@@ -14,14 +14,18 @@ let formatter = new Intl.NumberFormat("en-US", {
 const EspressoGrid = ({ data }) => {
 	const totalPrice = data.reduce((total, item) => total + (Number(item.price) || 0), 0);
 	const averagePrice = totalPrice / data.length;
+	const totalStars = data.reduce((rating, item) => rating + (item.rating.length || 0), 0);
+	const averageRating = Number((totalStars / data.length).toFixed(2));
+
 	return (
 		<div className="container-md">
-			<h1 style={{ marginLeft: "1.5em" }}>☕ Espresso Log 2024</h1>
+			<h1 style={{ marginLeft: "1.5em", font: "monospace" }}>☕ Espresso Log 2024</h1>
 
 			<ul style={{ listStyleType: "none", display: "flex", justifyContent: "flex-start" }}>
 				<li style={{ marginLeft: "0", marginRight: "1em" }}>Count: {data.length}</li>
 				<li style={{ marginRight: "1em" }}>Total: {formatter.format(totalPrice)}</li>
-				<li>Average: {formatter.format(averagePrice)}</li>
+				<li>Average Price: {formatter.format(averagePrice)}</li>
+				<li style={{ marginLeft: "1em", marginRight: "1em" }}>Average Rating: {averageRating}</li>
 			</ul>
 			<div style={{ overflow: "auto", maxHeight: "90vh" }}>
 				<Table striped bordered hover size="sm">
