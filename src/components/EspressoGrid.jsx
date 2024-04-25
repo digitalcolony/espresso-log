@@ -19,7 +19,9 @@ const EspressoGrid = ({ data }) => {
 
 	return (
 		<div className="container-md">
-			<h1 style={{ marginLeft: "1.5em", font: "monospace" }}>☕ Espresso Log 2024</h1>
+			<h1 style={{ marginLeft: "1.5em", marginTop: "0.5em", font: "monospace" }}>
+				☕ Espresso Log 2024
+			</h1>
 
 			<ul style={{ listStyleType: "none", display: "flex", justifyContent: "flex-start" }}>
 				<li style={{ marginLeft: "0", marginRight: "1em" }}>Count: {data.length}</li>

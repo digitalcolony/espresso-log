@@ -13,7 +13,7 @@ const EspressoList = ({ data }) => {
 	const totalPrice = data.reduce((total, item) => total + (Number(item.price) || 0), 0);
 	const averagePrice = totalPrice / data.length;
 	return (
-		<div>
+		<div style={{ marginBottom: "2em" }}>
 			<h1 style={{ marginLeft: "1.5em" }}>☕ Espresso Log 2024</h1>
 
 			<ul style={{ listStyleType: "none", display: "flex", justifyContent: "flex-start" }}>
