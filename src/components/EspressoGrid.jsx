@@ -26,7 +26,7 @@ const EspressoGrid = ({ data }) => {
 			<ul style={{ listStyleType: "none", display: "flex", justifyContent: "flex-start" }}>
 				<li style={{ marginLeft: "0", marginRight: "1em" }}>Count: {data.length}</li>
 				<li style={{ marginRight: "1em" }}>Total: {formatter.format(totalPrice)}</li>
-				<li>Average Price: {formatter.format(averagePrice)}</li>
+				<li>Average Price: {formatter.format(averagePrice)} (includes $1 tip)</li>
 				<li style={{ marginLeft: "1em", marginRight: "1em" }}>Average Rating: {averageRating}</li>
 			</ul>
 			<div style={{ overflow: "auto", maxHeight: "90vh" }}>
