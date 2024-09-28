@@ -7,22 +7,31 @@ import "../styles/styles.css";
 let data;
 let error;
 
-try {
-	const res = await fetch(
-		"https://script.google.com/macros/s/AKfycbxSRX6FR2A44yUPKY2QbVXp1BsxlPKgPIL1sq96OOYDLxXwkA-pd2wu5yID8ZG3Sjuu/exec"
-	);
+async function fetchData() {
+	try {
+		const response = await fetch(import.meta.env.PUBLIC_GOOGLE_SHEET_URL);
 
-	if (!res.ok) {
-		error = "Failed to fetch data";
+		if (!response.ok) {
+			throw new Error(`HTTP error! status: ${response.status}`);
+		}
+
+		const result = await response.json();
+
+		// Validate the data
+		if (!Array.isArray(result.data)) {
+			throw new Error("Invalid data format");
+		}
+
+		// Sort data by timestamp in descending order
+		data = result.data.sort(
+			(a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
+		);
+	} catch (err) {
+		error = `We're sorry, but we couldn't load the data. Please try again later. Error: ${err.message}`;
 	}
-
-	({ data } = await res.json());
-
-	// Sort data by timestamp in descending order
-	data = data.sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
-} catch (err) {
-	error = "We're sorry, but we couldn't load the data. Please try again later.";
 }
+
+await fetchData();
 ---
 
 <html lang="en">
