@@ -1,49 +1,16 @@
 ---
-import EspressoList from "../components/EspressoList";
-import EspressoGrid from "../components/EspressoGrid";
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+import Layout from "../layouts/Layout.astro";
+import Logs from "../components/Logs.astro";
 import "../styles/styles.css";
-// fetch data from google sheet
-
-let data;
-let error;
-
-async function fetchData() {
-	try {
-		const response = await fetch(import.meta.env.PUBLIC_GOOGLE_SHEET_URL);
-
-		if (!response.ok) {
-			throw new Error(`HTTP error! status: ${response.status}`);
-		}
-
-		const result = await response.json();
-
-		// Validate the data
-		if (!Array.isArray(result.data)) {
-			throw new Error("Invalid data format");
-		}
-
-		// Sort data by timestamp in descending order
-		data = result.data.sort(
-			(a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
-		);
-	} catch (err) {
-		error = `We're sorry, but we couldn't load the data. Please try again later. Error: ${err.message}`;
-	}
-}
-
-await fetchData();
+import "bootstrap/dist/css/bootstrap.min.css";
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Espresso Log</title>
-	</head>
-	<body>
-		{error && <p>{error}</p>}
-		{data && <EspressoGrid data={data} />}
-	</body>
-</html>
+<Layout>
+	<div class="container-sm">
+		<Header />
+		<Logs />
+		<Footer />
+	</div>
+</Layout>

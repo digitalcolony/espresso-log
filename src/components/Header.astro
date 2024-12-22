@@ -1,0 +1,21 @@
+---
+import { getCollection } from "astro:content";
+import { formatter } from "../utilities/formatter";
+const logs = await getCollection("logs");
+
+const logData = logs.map((log) => log.data);
+const espressoCount = logData.length;
+const totalPrice = logData.reduce((total, item) => total + (Number(item.price) || 0), 0);
+const averagePrice = totalPrice / logData.length;
+const totalStars = logData.reduce((rating, item) => rating + (item.rating.length || 0), 0);
+const averageRating = Number((totalStars / logData.length).toFixed(2));
+---
+
+<h1 style={{ marginLeft: "1.5em", marginTop: "0.5em", font: "monospace" }}>☕ Espresso Log 2024</h1>
+
+<ul style={{ listStyleType: "none", display: "flex", justifyContent: "flex-start" }}>
+	<li style={{ marginLeft: "0", marginRight: "1em" }}>Count: {espressoCount}</li>
+	<li style={{ marginRight: "1em" }}>Total: {formatter.format(totalPrice)}</li>
+	<li>Average Price: {formatter.format(averagePrice)} (includes $1 tip)</li>
+	<li style={{ marginLeft: "1em", marginRight: "1em" }}>Average Rating: {averageRating}</li>
+</ul>
