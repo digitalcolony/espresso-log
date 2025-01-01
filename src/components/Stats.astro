@@ -1,0 +1,58 @@
+---
+import { getCollection } from "astro:content";
+const logs = await getCollection("logs");
+
+// create array of counts and average rating for each where
+const stats = logs
+	.reduce((acc, log) => {
+		const where = log.data.where;
+		const rating = log.data.rating.length; // Convert "⭐⭐⭐" to number (3)
+		const index = acc.findIndex((stat) => stat.where === where);
+
+		if (index === -1) {
+			acc.push({
+				where,
+				count: 1,
+				totalRating: rating,
+				average: rating, // Initial average
+			});
+		} else {
+			acc[index].count++;
+			acc[index].totalRating += rating;
+			acc[index].average = acc[index].totalRating / acc[index].count;
+		}
+		return acc;
+	}, [])
+	.sort((a, b) => b.average - a.average); // Sort by highest average
+
+// only show status with a count of 5 or more
+const filteredStats = stats.filter((stat) => stat.count >= 5);
+---
+
+<table class="table table-striped table-sm">
+	<thead>
+		<tr>
+			<th>2024 Rankings (with 5 or more visits)</th>
+			<th>Average Rating</th>
+			<th>Visits</th>
+		</tr>
+	</thead>
+	<tbody>
+		{
+			filteredStats.map((stat) => (
+				<tr>
+					<td>{stat.where}</td>
+					<td>{(stat.totalRating / stat.count).toFixed(2)}</td>
+					<td>{stat.count}</td>
+				</tr>
+			))
+		}
+	</tbody>
+</table>
+
+<style>
+	.stats-wrapper {
+		max-width: 600px;
+		margin: 0 auto;
+	}
+</style>

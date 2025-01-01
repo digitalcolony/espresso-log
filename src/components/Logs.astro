@@ -5,7 +5,6 @@ const logs = await getCollection("logs");
 const logData = logs.map((log) => log.data);
 // sort by date descending
 logData.sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
-import { formatter } from "../utilities/formatter";
 ---
 
 <table class="table table-sm striped bordered hover">
@@ -15,7 +14,6 @@ import { formatter } from "../utilities/formatter";
 			<th>Place</th>
 			<th>Espresso</th>
 			<th>Rating</th>
-			<th class="d-none d-sm-table-cell">Price</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -26,7 +24,6 @@ import { formatter } from "../utilities/formatter";
 					<td>{log.where}</td>
 					<td>{log.espresso}</td>
 					<td>{log.rating}</td>
-					<td class="d-none d-sm-table-cell">{formatter.format(log.price)}</td>
 				</tr>
 			))
 		}
